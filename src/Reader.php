@@ -253,8 +253,8 @@ class Reader extends AbstractCsv implements TabularDataReader, JsonSerializable
     {
         $header = $this->computeHeader($header);
         $normalized = function ($record): bool {
-            return is_array($record) && ($this->is_empty_records_included || $record != [null]);
-        };
+            return is_array($record) && ($this->is_empty_records_included || ($record != [null] && $record != [$this->input_bom]));
+            };       
 
         $bom = '';
         if (!$this->is_input_bom_included) {
